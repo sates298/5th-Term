@@ -1,0 +1,55 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Obliczenia naukowe\\Lista1}
+\author{Stanisław Woźniak}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Zadanie 1}
+\subsection{Macheps - Epsilon Maszynowy}
+\subsection{Eta}
+\subsection{Max Float - Największa wartość}
+
+\section{Zadanie 2 - Wzór na macheps}
+\subsection{Problem}
+Należało stwierdzić eksperymentalnie prawdziwość wzoru Kahana na epsilon maszynowy (macheps), który jest według niego opisany wzorem:
+\[3*(\frac{4}{3} - 1) - 1\]
+\subsection{Wyniki}
+Porównanie wyników z poprawnym epsilonem maszynowym:
+\begin{center}
+\begin{tabular}{ c|c|c}
+  & Wyliczony według wzoru & poprawny\\
+  \hline
+ Float16 & -0.000977 & 0.000977\\
+ Float32 & 1.1920929e-7 & 1.1920929e-7\\
+ Float64 & -2.220446049250313e-16 & 2.220446049250313e-16
+\end{tabular}
+\end{center}
+\subsection{Wnioski}
+
+
+\section{Zadanie 3 - Rozmieszczenie liczb zmiennopozycyjnych}
+\subsection{Problem}
+Należało sprawdzić eksperymentalnie własność liczb w arytmetyce Float64 w przedziale [1, 2], że każda z nich może być przedstawiona wzorem:
+\[x =1 + k * \delta \] gdzie $k = 1, 2, ... 2^{52}-1$ oraz $\delta = 2^{-52}$
+\subsection{Wynik}
+Wyniki wychodzą zgodne dla podanego wzoru porównywanego z funkcją nextfloat. Przy porównaniu liczb w bitach możemy również zauwazyc, że wyniki są takie same w obu przypadkach.
+\subsection{Wnioski}
+Podany wzór jest poprawny, gdyż liczba $\delta$ jest reprezentowana jako jeden najmniej znaczący bit w arytmetyce Float64. Mnożąc po kolei przez każdą liczbę k uzyskujemy każdą możliwą reprezentację 52 najmniej znaczacych bitów, czyli mantysy.
+\\
+Natomiast liczby w przedzale [$\frac{1}{2}$, 1] są rozmieszczone z różnicą $\delta = 2^{-53}$, a w przedziale [2, 4] sa rozmieszczone z różnicą $\delta = 2^{-51}$, ponieważ liczba ostateczna jest w reprezentacji $mantysa*2^{cecha}$. 
+
+
+\section{Zadanie 4}
+
+\section{Zadanie 5}
+
+\section{Zadanie 6}
+
+\section{Zadanie 7}
+
+\end{document}
