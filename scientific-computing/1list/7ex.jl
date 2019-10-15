@@ -5,7 +5,7 @@ function f(x::Float64)
 end
 
 function dx(func, h::Float64, x0::Float64)
-    println("x0 + h = ", x0 + h)
+    println("h = ", h)
     return (func(x0 + h) - func(x0))/h
 end
 

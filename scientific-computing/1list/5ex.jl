@@ -1,6 +1,6 @@
 # Stanisław Woźniak
 
-type = Float32
+type = Float64
 
 n = 5
 
