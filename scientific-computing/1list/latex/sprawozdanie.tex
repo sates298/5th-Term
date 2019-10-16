@@ -42,11 +42,17 @@ Problem polegał na tym, żeby obliczyć wartość $\eta > 0$, która jest róż
   \hline
  wyliczone & $6.0 * 10^{-8}$ & $1.0 * 10^{-45}$ & $5.0 * 10^{-324}$\\
  systemowe & $6.0 * 10^{-8}$ & $1.0 * 10^{-45}$ & $5.0 * 10^{-324}$\\
- float.h & - & $??$ & $??$
+ $MIN_{nor}$ & - & $1.2 * 10^{-38}$ & $2.2 * 10^{-308}$\\
+ $MIN_{sub}$ & - & $1.4 * 10^{-45}$ & $4.9 * 10^{-324}$\\
+ floatmin() & $6.104 * 10^{-5}$ & $1.1754944 * 10^{-38}$ & $2.22507385850720 * 10^{-308}$
 \end{tabular}
 \end{center}
 \subsubsection{Wnioski}
+Pwyższe wyniki pokazują najmniejszą możliwą liczbę zapisaną w danej arytmetyce. Można to udowodnić za pomocą reprezentacji bitowej liczby gdzie w arytmetyce podwójnej dokładności liczba $\eta$ jest zapisana jako same zera oraz jedna jedynka na najmniej znaczacym bicie.
 
+Jeśli byśmy porównywali wyliczone wartości z wartością $MIN_{sub}$ widzimy porównywalne wartości, co oznacza, że obliczone przez nas minima są zdenormalizowane.
+
+Natomiast porównując $MIN_{nor}$ z zwróconą wartością floatmin(), także uzyskujemy wręcz identyczne wartości. Oznacza to, że funkcja floatmin() zwraca znormalizowane liczby.
 
 \subsection{Max Float - Największa wartość}
 \subsubsection{Problem}
@@ -58,11 +64,11 @@ Należało polczyć iteracyjne najwiekszą wartość (MAX) dla trzech arytmetyk 
   \hline
  wyliczone & $6.55 * 10^{4}$ & $3.4028235 * 10^{38}$ & $1.7976931348623157 * 10^{308}$\\
  systemowe & $6.55 * 10^{4}$ & $3.4028235 * 10^{38}$ & $1.7976931348623157 * 10^{308}$\\
- float.h & - & $??$ & $??$
+ float.h & - & $3.40282347 * 10^{38}$ & $1.7976931348623157 * 10^{308}$
 \end{tabular}
 \end{center}
 \subsubsection{Wnioski}
-
+Dokładniej przyglądając się wynikom, możemy zauwazyć, że wyniki wyliczone iteracyjnie pokrywają się z wynikami systemowymi oraz wynikami z pliku nagłówkowego float.h.
 
 
 \section{Zadanie 2 - Wzór na macheps}

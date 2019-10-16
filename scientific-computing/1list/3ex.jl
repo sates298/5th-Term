@@ -1,6 +1,9 @@
 # Stanisław Woźniak
 
+# dana delta
 delta = Float64(2.0)^-52
+
+# ilość wypisanych kolejnych liczb
 n = 10
 
 function check()

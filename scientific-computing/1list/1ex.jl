@@ -1,5 +1,6 @@
 # Stanisław Woźniak
 
+# znalezienie macheps poprzez dzielenie liczby przez 2 zaczynając od 1.0
 function findMacheps(type)
     macheps::type = 1.0
     while type(1.0) + macheps/type(2.0) > type(1.0)
@@ -14,6 +15,7 @@ println("macheps 64 : mine -> ", findMacheps(Float64), ", system's -> ", eps(Flo
 
 println()
 
+# znalezienie eta poprzez dzielenie liczby przez 2 zaczynając od 1.0
 function findEta(type)
     prev::type = 1.0
     eta::type = prev
@@ -30,6 +32,8 @@ println("eta 64 : mine -> ", findEta(Float64), ", system's -> ", nextfloat(Float
 
 println()
 
+# funkcja znajdująca max value poprzez mnożenie przez 2 a potem dodawanie
+# kolejnych liczb stworzonych z poprzedniej liczby dzielonej na dwa
 function findMax(type)
     cur::type = 1.0
     max::type = 0.0
