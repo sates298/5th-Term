@@ -4,6 +4,7 @@
 \usepackage[MeX]{polski}
 \usepackage[polish]{babel}
 \usepackage{enumerate}
+\usepackage{abstract}
 
 \title{Obliczenia naukowe\\Lista1}
 \author{Stanisław Woźniak}
@@ -15,8 +16,54 @@
 
 \section{Zadanie 1}
 \subsection{Macheps - Epsilon Maszynowy}
+\subsubsection{Problem}
+Należało obliczyć iteracyjnie epsilon maszynowy ($macheps$) w arytmetykach Float16, Float32 oraz Float64. Macheps jest to najmniejsza liczba $\epsilon > 0$ , taka że $1.0 + \epsilon > 1.0$ .
+\subsubsection{Wyniki}
+\begin{center}
+\begin{tabular}{ c|c|c|c}
+  & Float16 & Float32 & Float64\\
+  \hline
+ wyliczone & 0.000977 & $1.1920929 * 10^{-7}$ & $2.220446049250313 * 10^{-16}$\\
+ systemowe & 0.000977 & $1.1920929 * 10^{-7}$ & $2.220446049250313 * 10^{-16}$\\
+ float.h & - & $1.1920929 * 10^{-7}$ & $2.220446049250313 * 10^{-16}$
+\end{tabular}
+\end{center}
+\subsubsection{Wnioski}
+Po wyliczeniu $macheps$ mozemy zauważyć, że uzyskane wyniki są takie same jak systemowe wartości oraz wartości z pliku nagłówkowego float.h.
+
+Również możemy wywnioskować, że w zależności od precyzji arytmetyki zmienia się $macheps$. Zależnosc jest taka, że im lepsza precyzja tym mniejszy jest epsilon maszynowy.
 \subsection{Eta}
+\subsubsection{Problem}
+Problem polegał na tym, żeby obliczyć wartość $\eta > 0$, która jest różnicą pomiędzy dwoma najbliższymi wartościami w danej arytmetyce. Obliczenia należało wykonywać w arytemtykach Float16, Float32, Float64.
+\subsubsection{Wyniki}
+\begin{center}
+\begin{tabular}{ c|c|c|c}
+  & Float16 & Float32 & Float64\\
+  \hline
+ wyliczone & $6.0 * 10^{-8}$ & $1.0 * 10^{-45}$ & $5.0 * 10^{-324}$\\
+ systemowe & $6.0 * 10^{-8}$ & $1.0 * 10^{-45}$ & $5.0 * 10^{-324}$\\
+ float.h & - & $??$ & $??$
+\end{tabular}
+\end{center}
+\subsubsection{Wnioski}
+
+
 \subsection{Max Float - Największa wartość}
+\subsubsection{Problem}
+Należało polczyć iteracyjne najwiekszą wartość (MAX) dla trzech arytmetyk (Float16, Float32, Float64) oraz porównanie ich z wartościami zwracanymi przez funkcję floatmax().
+\subsubsection{Wyniki}
+\begin{center}
+\begin{tabular}{ c|c|c|c}
+  & Float16 & Float32 & Float64\\
+  \hline
+ wyliczone & $6.55 * 10^{4}$ & $3.4028235 * 10^{38}$ & $1.7976931348623157 * 10^{308}$\\
+ systemowe & $6.55 * 10^{4}$ & $3.4028235 * 10^{38}$ & $1.7976931348623157 * 10^{308}$\\
+ float.h & - & $??$ & $??$
+\end{tabular}
+\end{center}
+\subsubsection{Wnioski}
+
+
 
 \section{Zadanie 2 - Wzór na macheps}
 \subsection{Problem}
@@ -34,7 +81,7 @@ Porównanie wyników z poprawnym epsilonem maszynowym:
 \end{tabular}
 \end{center}
 \subsection{Wnioski}
-
+Jak można zobaczyć po wynikach, część z nich ma odwrotny znak od prawidłowej wartości. Dzieje się tak z powodu $\frac{4}{3}$ ponieważ w arytmetyce zmiennopozycyjnej Float64 nie ma dokładnej reprezentacji tejże wertości, z powodu czego jest błąd znaku w wyniku.
 
 \section{Zadanie 3 - Rozmieszczenie liczb zmiennopozycyjnych}
 \subsection{Problem}
@@ -58,7 +105,7 @@ Należało znaleźć liczbę w arytmetyce Float64 z przedziału $1 < x < 2$, tak
   \end{tabular}
 \end{center}
 \subsection{Wnioski}
-
+Z powyższych wyników widzimy, że istnieją liczby, które spełniają tą nierówność. Dzieje się to dlatego, gdyż działanie dzielenia nie daje za każdym razem dokładnej wartości. Ponieważ w ograniczonej ilości bitów nie jest możliwe zapisanie dokładnej wartości każdej liczby.
 
 \section{Zadanie 5 - Iloczyn skalarny dwóch wektorów}
 \subsection{Problem}
@@ -87,6 +134,8 @@ Wyniki:
 \end{center}
 poprawna wartość: \[-1.00657107000000 * 10^{-11}\]
 \subsection{Wnioski}
+Patrząc na prawidłowy wynik widzimy, że podane wektory są niemal prostopadłe. Natomiast patrząc na wyniki algorytmów możemy zauważyć, że różnią się one od prawidłowej wartości. Przy mniejszej dokładności (Float32) wyniki każdego algorytmy sa do siebie zbliżone, ale dalekie od prawidłowej wartości. Przy większej dokładności (Float64) wyniki są bliższe prawidłowej wartości, lecz jednak nadal odbiegają od niej. Dzieje się to dlatego, że przy dodawaniu dwóch wartości o dużej różnicy między sobą, większa wartość "pochłania" mniejszą wartość co daje niepoprawny wynik.
+
 
 \section{Zadanie 6 - Porównanie dwóch takich samych funkcji}
 \subsection{Problem}
@@ -103,13 +152,15 @@ Podane zostały dwie funkcje, które w praktyce są identyczne. W arytmetyce Flo
     $8^{-3}$ & $1.9073468138230965 * 10^{-6}$ & $1.907346813826566 * 10^{-6}$ \\
     $8^{-4}$ & $2.9802321943606103 * 10^{-8}$ & $2.9802321943606116 * 10^{-8}$ \\
     $8^{-5}$ & $4.656612873077393 * 10^{-10}$ & $4.6566128719931904 * 10^{-10}$ \\
-    $8^{-6}$ & $7.275957614183426 * 10^{-6}$12 & $7.275957614156956 * 10^{-12}$ \\
-    $8^{-7}$ & $1.1368683772161603 * 10^{-13}$ & $1.1368683772160957 * 10^{-13}$
+    $8^{-6}$ & $7.275957614183426 * 10^{-12}$ & $7.275957614156956 * 10^{-12}$ \\
+    $8^{-7}$ & $1.1368683772161603 * 10^{-13}$ & $1.1368683772160957 * 10^{-13}$\\
+    $8^{-8}$ & $1.7763568394002505 * 10^{-15}$ & $1.7763568394002489 * 10^{-15}$\\
+    $8^{-9}$ & 0.0 & $2.7755575615628914 * 10^{-17}$\\
+    $8^{-10}$ & 0.0 & $4.336808689942018 * 10^{-19}$
   \end{tabular}
 \end{center}
 \subsection{Wnioski}
-
-
+Wnioskując z otrzymanych wyników, możemy stwierdzić, że dokładniejsze wyniki otrzymujemy obliczając funkcje g. Dzieje się to dlatego, że w funkcji f odejmujemy od siebie dwie bardzo zbliżone do siebie wartości. Wnioskuje to tym, że tracimy najbardziej znaczace bity przez co wyniki nie są do końca wiarygodne.
 
 \section{Zadanie 7 - Pochodna oraz różnica błędu}
 \subsection{Problem}
@@ -142,5 +193,9 @@ Wyliczony bład z powyższego wzoru dla poszczególnych n oraz pokazanie zmiany 
   \end{tabular}
 \end{center}
 \subsection{Wnioski}
+Z powyższych wyników można wywnioskować, że błąd danego działania największy jest dla dużych h oraz małych. Oznacza to, że w okolicach środka błąd jest najmniejszy.
 
+Najmniejszy błąd wypada dla n=28 tzn dla $h=2^{-28}$, nie jest to dokładny środek pomiędzy 0 a 52, ponieważ liczby nie są równomiernie rozmieszczone w reprezentacji bitowej.
+
+Natomiast najwiekszy błąd pojawia się przy skrajnych wartościach h, dlatego, że w obliczeniu $\widetilde{f}'(x_{0})$, h jest albo pochłaniane bardziej przez $x_{0}$ albo h pochłania różnicę funkcji obliczoną w liczniku.
 \end{document}

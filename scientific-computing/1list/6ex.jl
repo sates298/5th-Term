@@ -1,6 +1,6 @@
 # Stanisław Woźniak
 
-n=7
+n=10
 
 function f(x::Float64)
     return sqrt(x^2 + 1) - 1
