@@ -1,0 +1,18 @@
+#img_CV {
+    display: block;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    #img_CV {
+        width: 100px;
+    }
+}
+
+p {
+    font-size: 17px;
+    font-family: Segoe UI;
+}

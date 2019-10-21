@@ -1,0 +1,15 @@
+.a_section:link{
+    color: green;
+}
+
+.a_section:visited{
+    color: green;
+}
+
+.a_section:hover{
+    color: red;
+}
+
+h2 {
+    text-align: left;
+}
