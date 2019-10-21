@@ -1,58 +1,99 @@
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Projects</title>
-    <link rel="stylesheet" href="../css/common.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/sections.css"/>
+    <link rel="stylesheet" href="../css/projects.css"/>
+</head>
+<body>
+
+<div class="header-nav">
+
     <header>
-      <h1>Stanisław Woźniak</h1>
+        <h1>Stanisław Woźniak</h1>
     </header>
 
     <nav>
-      <table class="table">
-        <tbody>
-          <tr>
-            <td><a href="index.html">main page</a></td>
-          </tr>
-          <tr>
-            <td><a href="about.html">about me</a></td>
-          </tr>
-          <tr>
-            <td><a href="projects.html">projects</a></td>
-          </tr>
-          <tr>
-            <td><a href="interestings.html">interestings</a></td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td><a href="index.html">main page</a></td>
+            </tr>
+            <tr>
+                <td><a href="about.html">about me</a></td>
+            </tr>
+            <tr>
+                <td><a href="projects.html">projects</a></td>
+            </tr>
+            <tr>
+                <td><a href="interests.html">interests</a></td>
+            </tr>
+            </tbody>
+        </table>
     </nav>
+</div>
+<br>
 
-    <nav>
-      <ul>
-        <li><a class="a_section" href="#chinese-checkers">1. Chinese checkers</a></li>
-        <li><a class="a_section" href="#school-register">2. School register</a></li>
-        <li><a class="a_section" href="#mobile-bank-account">3. Mobile bank account</a></li>
-      </ul>
-    </nav>
+<div class="content">
+    <main>
+        <nav>
+            <ul>
+                <li><a class="a_section" href="#chinese-checkers">1. Chinese checkers</a></li>
+                <li><a class="a_section" href="#school-register">2. School register</a></li>
+                <li><a class="a_section" href="#mobile-bank-account">3. Mobile bank account</a></li>
+            </ul>
+        </nav>
 
-    <section id="chinese-checkers">
-      <h2>1. Chinese checkers</h2>
-      <p>about project</p>
-    </section>
+        <section id="chinese-checkers">
+            <h2>1. Chinese checkers</h2>
+            <p>
+                Project in JavaFX is a multiplayer game of chinese checkers.
+                It was project on course programming technologies.
+                It was server-client app.
+                On one server could be played many games at once.
+                Communication between server and many clients is made using sockets.
+            </p>
+        </section>
 
-    <section id="school-register">
-      <h2>2. School Register</h2>
-      <p> about projct </p>
-    </section>
+        <section id="school-register">
+            <h2>2. School Register</h2>
+            <p>
+                Spring Boot Web Application to learn Spring Framework.
+                Application is simulator of school register.
+                There is security, connection to databes in mysql on Docker.
+                Curious feature is sending emails every midnight to these
+                parents whose child has equal or more than three '1'.
+                Another feature is sending email to parent every time
+                when his child get '1' from behavior.
+            </p>
+        </section>
 
-    <section id="mobile-bank-account">
-      <h2>3. Mobile bank account</h2>
-      <p>about project</p>
-    </section>
+        <section id="mobile-bank-account">
+            <h2>3. Mobile bank account</h2>
+            <p>
+                Kotlin Mobile Application made on Mobiles course.
+                It was team project. All is made in Kotlin inside.
+                Application can follow by your bank account.
+                It simulate expenses and making investments and something like this.
+            </p>
+        </section>
+    </main>
+</div>
+<br>
+<footer>
+    <a class="icons" href="https://github.com/sates298">
+        <img src="../image/gh-icon.png" alt="github"/>
+    </a>
+    <a class="icons" href="https://www.facebook.com/profile.php?id=100002517290693">
+        <img src="../image/fb-icon.png" alt="facebook"/>
+    </a>
+    <a class="icons" href="mailto:stanislaw.wo@interia.pl">
+        <img src="../image/mail-icon.png" alt="mail"/>
+    </a>
+</footer>
 
-
-  </body>
+</body>
 </html>
