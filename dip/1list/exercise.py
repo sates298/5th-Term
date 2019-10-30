@@ -55,17 +55,17 @@ for i in range(width):
                 max = curr
 
 
-print(max)
-# cv.imshow("original", original)
+# print(max)
+cv.imshow("original", original)
 
-# cv.imshow("grayscale", gray)
-# cv.imwrite("grayscale.jpg", gray)
+cv.imshow("grayscale", gray)
+cv.imwrite("grayscale.jpg", gray)
 
-# cv.imshow("gamma", converted)
-# cv.imwrite("gamma_conversion.jpg", converted)
+cv.imshow("gamma", converted)
+cv.imwrite("gamma_conversion.jpg", converted)
 
-# cv.imshow("gaussian", blur)
-# cv.imwrite("gaussian_filtering.jpg", gray)
+cv.imshow("gaussian", blur)
+cv.imwrite("gaussian_filtering.jpg", blur)
 
-# cv.waitKey(100000)
+cv.waitKey(100000)
 
