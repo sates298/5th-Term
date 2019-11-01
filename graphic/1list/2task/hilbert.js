@@ -1,10 +1,11 @@
 class HilbertCurve {
     constructor(level, context) {
         this.ctx = context;
-        this.turtleAngle = 0;
+        this.turtleAngle = Math.PI/2;
+        this.level = level;
         this.range = this.ctx.canvas.width / Math.pow(2, level);
         this.turtleX = this.range / 2;
-        this.turtleY = this.range / 2;
+        this.turtleY = this.ctx.canvas.height - this.range / 2;
     }
 
 
@@ -15,36 +16,37 @@ class HilbertCurve {
         this.ctx.lineTo(this.turtleX, this.turtleY)
     }
 
-    turnRight() {
-        this.turtleAngle += Math.PI/2;
+    turnRight(angle) {
+        this.turtleAngle -= angle;
     }
 
-    turnLeft() {
-        this.turtleAngle -= Math.PI/2;
+    turnLeft(angle) {
+        this.turtleAngle += angle;
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.ctx.beginPath();
+        this.ctx.moveTo(this.range / 2, this.ctx.canvas.height - this.range / 2);
 
-        this.forward();
-        this.turnRight();
-        this.forward();
-        this.turnRight();
-        this.forward();
-        this.turnRight();
-        // this.drawOnePart();
+        this.drawOnePart(this.level, Math.PI/2);
         this.ctx.stroke();
-        console.log("weszło")
     }
 
-    drawOnePart(){
+    drawOnePart(n, angle){
+        if (n <=0) return;
+
+        this.turnLeft(angle);
+        this.drawOnePart(n-1, -angle);
         this.forward();
-        this.turnRight();
+        this.turnRight(angle);
+        this.drawOnePart(n-1, angle);
         this.forward();
-        this.turnRight();
+        this.drawOnePart(n-1, angle);
+        this.turnRight(angle);
         this.forward();
-        this.turnRight();
+        this.drawOnePart(n-1, -angle);
+        this.turnLeft(angle);
     }
 
 }
