@@ -10,6 +10,12 @@
     color: red;
 }
 
+@media only screen and (min-width: 3072px) {
+    .a_section {
+        font-size: 70px;
+    }
+} 
+
 h2 {
     text-align: left;
 }

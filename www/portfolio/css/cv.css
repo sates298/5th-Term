@@ -6,13 +6,27 @@
     padding: 10px;
 }
 
-@media only screen and (max-width: 600px) {
-    #img_CV {
-        width: 100px;
-    }
-}
-
 p {
     font-size: 17px;
     font-family: Segoe UI;
 }
+
+@media only screen and (max-width: 600px) {
+    #img_CV {
+        width: 100px;
+    }
+    
+}
+
+@media only screen and (min-width: 2548px) {
+    #img_CV {
+        width: 400px;
+    }
+
+    p {
+        font-size: 80px;
+    }
+}
+        
+
+
