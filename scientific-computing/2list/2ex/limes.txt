@@ -1,0 +1,5 @@
+f(x) = e^x * ln(1 + e^(-x)) 
+
+lim x->0 (f) = ln(2)
+lim x->-inf (f) = 0
+lim x->inf (f) = 1
