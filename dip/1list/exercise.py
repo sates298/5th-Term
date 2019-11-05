@@ -7,12 +7,23 @@ original = cv.imread('contrast.jpg', 1)
 # read img in gray
 gray = cv.imread('contrast.jpg', cv.IMREAD_GRAYSCALE)
 
+
+def adjust_gamma(image, gamma):
+	# build a lookup table mapping the pixel values [0, 255] to
+	# their adjusted gamma values
+	invGamma = 1.0 / gamma
+	table = np.array([((i / 255.0) ** invGamma) * 255
+		for i in np.arange(0, 256)]).astype("uint8")
+ 
+	# apply gamma correction using the lookup table
+	return cv.LUT(image, table)
+
 # s = cr^gamma
 gamma = 3
-converted = np.power(gray, gamma)
+converted = adjust_gamma(gray, gamma)
 
 # gaussian filtering
-blur = cv.GaussianBlur(converted, (19,19), 6)
+blur = cv.GaussianBlur(converted, (5,5), 20)
 
 # check neighbour pixels
 max = 0
@@ -55,7 +66,7 @@ for i in range(width):
                 max = curr
 
 
-# print(max)
+print(max)
 cv.imshow("original", original)
 
 cv.imshow("grayscale", gray)
