@@ -6,9 +6,15 @@
     padding: 10px;
 }
 
+@font-face {
+    font-family: 'myFont';
+    src: url(../myFont.woff) format('woff') ;
+}
+
+
 p {
     font-size: 17px;
-    font-family: Segoe UI;
+    font-family: myFont;
 }
 
 @media only screen and (max-width: 600px) {
