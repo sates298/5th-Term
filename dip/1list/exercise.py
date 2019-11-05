@@ -67,6 +67,7 @@ for i in range(width):
 
 
 print(max)
+
 cv.imshow("original", original)
 
 cv.imshow("grayscale", gray)
@@ -77,6 +78,7 @@ cv.imwrite("gamma_conversion.jpg", converted)
 
 cv.imshow("gaussian", blur)
 cv.imwrite("gaussian_filtering.jpg", blur)
+
 
 cv.waitKey(100000)
 
