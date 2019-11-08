@@ -1,3 +1,5 @@
+# Stanisław Woźniak
+
 function populate(r, n, p0, type)
     if (n <= 0)
         return type(p0)

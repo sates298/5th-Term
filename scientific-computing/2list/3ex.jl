@@ -1,3 +1,5 @@
+# Stanisław Woźniak
+
 using LinearAlgebra
 
 function matcond(n::Int, c::Float64)
@@ -23,16 +25,20 @@ function solution(A, n)
     b = A*x
     gauss = A\b
     invx = inv(A)*b
-    return [(abs(norm(x) - norm(gauss)))/norm(x), (abs(norm(x) - norm(invx)))/norm(x)]
+    return [(norm(x-gauss))/norm(x), (norm(x-invx))/norm(x)]
 end
 
 n = 20
 for i = 1:n
     A = hilb(i)
-    println("i = ", i, ", score[gauss, inv] = ", solution(A, i))
+    s = solution(A, i)
+    # println("i = ", i, ", score[gauss, inv] = ", s)
+    println(i, " & ", rank(A), " & ", cond(A), " & ", s[1], " & ", s[2]) 
 end
 
 for n = [5, 10, 20], c = Float64[1, 10, 10^3, 10^7, 10^12, 10^16] 
     A = matcond(n, c)
-    println("n = ", n, ", c = ", c ,", score[gauss, inv] = ", solution(A, n))
+    s = solution(A, n)
+    # println("n = ", n, ", c = ", c ,", score[gauss, inv] = ", solution(A, n))
+    println(n, " & ", rank(A), " & ", cond(A), " & ", s[1], " & ", s[2]) 
 end

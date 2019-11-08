@@ -1,7 +1,7 @@
 # Stanisław Woźniak
 
 # arytmetyka w której jest liczone zadanie
-type = Float64
+type = Float32
 
     # ilość wymiarów wektora
     n = 5
