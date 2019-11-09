@@ -1,11 +1,17 @@
-\documentclass{article}
+\documentclass[11pt, a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[MeX]{polski}
 \usepackage[polish]{babel}
 \usepackage{enumerate}
 \usepackage{graphicx}
+\usepackage[T1]{fontenc}
 \usepackage{caption}
+\usepackage{float}
+\usepackage{geometry}
+
+
+\geometry{top=1.5cm, bottom=1.5cm, right=1.5cm, left=1.5cm}
 
 \captionsetup[figure]{
     position=above,
@@ -216,29 +222,31 @@ Dane: $p_{0} = 0.01, r = 3, n = 40$.
     Float64 & 0.011611238029748606 & 0.7305550338104317
   \end{tabular}
 \end{center}
-Przykładowe wykresy:
+Wykresy:
 \begin{figure}[h]
   \begin{minipage}{0.48\textwidth}
     \centering
     \caption{Float64 - iteracja bez obcięcia}
+    \includegraphics[width=\linewidth]{64}
   \end{minipage}
   \begin{minipage}{0.48\textwidth}
     \centering
     \caption{Float64 - iteracja z obcięciem}
+    \includegraphics[width=\linewidth]{cut64}
   \end{minipage}
   \begin{minipage}{0.48\textwidth}
     \centering
     \caption{Float32 - iteracja bez obcięcia}
+    \includegraphics[width=\linewidth]{32}
   \end{minipage}
   \begin{minipage}{0.48\textwidth}
     \centering
     \caption{Float32 - iteracja z obcięciem}
+    \includegraphics[width=\linewidth]{cut32}
   \end{minipage}
 \end{figure}
 \subsection{Wnioski}
 Analizując powyższe wykresy możemy zauważyć, że uzyskane wartości są w miarę regularne. Po wprowadzeniu w 10tej iteracji ucięcia znaków po przecinku od 4 miejsca, możemy zauważyć różnicę w wynikach oraz delikatne zaburzenia w kolejnych krokach działania funkcji w przypadku Float64. Patrząc na Float32 dostaliśmy efekt zupełnie odwrotny, to znaczy po obcięciu otrzymaliśmy mniej zaburzeń na wykresie, lecz ostatecznie nadal mamy niedokłądne wyniki po n-tej iteracji. Dzieje się to dlatego, że w przypadku Float32 precyzja arytmetyki jest na tyle mała, że do momentu ucięcia cyfr po 4 miesju po przecinku wartosc posiadał już błąd spowodowany niewielką precyzją. Po ucięciu lekko zniwelowaliśmy ten błąd, lecz nadal szybko ujawniły się zaburzenia i błędy. W przypadku arytmetyki Float64 spotykamy się ze zjawiskiem gdy to precyzja arytmetyki jest na tyle wysoka, że przy iteracji, w której odcinami końcowe cyfry tracimy dokładność zamiast ją wzmocnić. Skutkiem tego jest szybsze zaburzenia w wynikach. W tabeli powyżej wykresami możemy zaobserwować wyniki po 40 iteracjach w obu eksperymentach. Widzimy, że wyniki różnią się od siebie w dużym stopni (porównując do 1), przez co możemy wywnioskować, że zaburzone iteracje są na tyle niewiarygodne, że otrzymane dane stają się bezuzyteczne w badaniu modelu populacji. Aby jak najlepiej zniwelować wystepujący tu problem należałoby użyć arytmetyki z jak największa precyzją, aby nieuniknione zaburzenia wystapiły w jak najpóźniejszej iteracji.
-
-
 
 \section{Zadanie 6}
 \subsection{Problem}
@@ -256,32 +264,32 @@ Dane:
 \end{enumerate}
 
 \subsection{Wyniki}
-\begin{figure}[h]
-  \begin{minipage}{0.40\textwidth}
+\begin{figure}[H]
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot1}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot2}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot3}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot4}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot5}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot6}
   \end{minipage}
-  \begin{minipage}{0.40\textwidth}
+  \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\linewidth]{plot7}
   \end{minipage}
