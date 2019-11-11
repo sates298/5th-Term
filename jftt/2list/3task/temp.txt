@@ -1,0 +1,8 @@
+    \\$ multiline = true;
+    {
+        if(multiline){
+            multiline = false;
+        }else{
+            putchar(' ');BEGIN(INITIAL);
+        }
+    }
