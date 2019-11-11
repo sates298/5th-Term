@@ -8,6 +8,7 @@ MAIN = main.out
 
 all: $(MAIN) clean
 
+
 $(MAIN): flex.l 
 	$(CC) -o $(MAIN) $(PROD) 
 
