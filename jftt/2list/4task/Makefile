@@ -1,7 +1,7 @@
-CC=gcc
+CC=g++
 FLEX=lex
 
-SRC=1task.l
+SRC=4task.l
 
 PROD=lex.yy.c
 MAIN = main.out
@@ -19,4 +19,3 @@ flex.l:
 
 clean:
 	rm -f  *.yy.c
-
