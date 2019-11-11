@@ -6,7 +6,7 @@ SRC=3task.l
 PROD=lex.yy.c
 MAIN = main.out
 
-all: $(MAIN)
+all: $(MAIN) clean
 
 $(MAIN): flex.l 
 	$(CC) -o $(MAIN) $(PROD) 
