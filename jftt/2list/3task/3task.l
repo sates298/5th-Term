@@ -11,14 +11,17 @@
 %x ONE_LINE_COMMENT
 %x MULTILINE_COMMENT
 
+IGNORE \\\n
+
 %%
 \" {ECHO; BEGIN(STRING);}
 <STRING>{
     .|\n ECHO;
     .\"|\n\"  {ECHO; BEGIN(INITIAL);}
 }
-\/\/\/  |
-\/\/!   {
+{IGNORE}*   /*ignore*/
+\/{IGNORE}*\/{IGNORE}*\/  |
+\/{IGNORE}*\/{IGNORE}*!   {
     if(docMode){
         ECHO;
         BEGIN(ONE_LINE_DOCUMENT);
@@ -26,17 +29,18 @@
         BEGIN(ONE_LINE_COMMENT);
     }
 }
-\/\/    BEGIN(ONE_LINE_COMMENT);
+\/{IGNORE}*\/    BEGIN(ONE_LINE_COMMENT);
 <ONE_LINE_COMMENT>{
+    {IGNORE}*    /*ignore*/
     .   /*ignore*/
-    \n  {putchar(' ');BEGIN(INITIAL);}
+    \n  {BEGIN(INITIAL);}
 }
 <ONE_LINE_DOCUMENT>{
     .   ECHO;
     \n  {ECHO;BEGIN(INITIAL);}
 }
-\/\*\*  |
-\/\*!   {
+\/{IGNORE}*\*{IGNORE}*\*  |
+\/{IGNORE}*\*{IGNORE}*!   {
     if(docMode){
         ECHO;
         BEGIN(MULTILINE_DOCUMENT);
@@ -44,10 +48,10 @@
         BEGIN(MULTILINE_COMMENT);
     }
 }
-\/\*   BEGIN(MULTILINE_COMMENT);
+\/{IGNORE}*\*   BEGIN(MULTILINE_COMMENT);
 <MULTILINE_COMMENT>{
     .|\n    /*ignore*/
-    \*\/    {putchar(' ');BEGIN(INITIAL);}   
+    \*\/    {BEGIN(INITIAL);}   
 }
 <MULTILINE_DOCUMENT>{
     .|\n    ECHO;
