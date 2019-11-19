@@ -1,0 +1,18 @@
+h2 {
+    font-family: Comic Sans MS;
+}
+
+p {
+    font-family: Consolas;
+}
+
+@media only screen and (min-width: 2548px) {
+
+    h2 {
+        font-size: 80px;
+    }
+
+    p {
+        font-size: 70px;
+    }
+} 

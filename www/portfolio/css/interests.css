@@ -1,0 +1,56 @@
+.img_int0, .img_int1 {
+    overflow: auto;
+    height: 150px;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.img_int0 {
+    float: right;
+}
+
+.img_int1 {
+    float: left;
+}
+
+@media only screen and (max-width: 700px) {
+    #warhammer_img {
+        width: 200px;
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 2000px) {
+    .img_int0, .img_int1 {
+        height: 300px;
+        width: auto;
+    }
+
+    
+} 
+
+@media only screen and (min-width: 2548px) {
+    h2 {
+        font-size: 80px;
+    }
+
+    p {
+        font-size: 70px;
+    }
+}
+
+
+h2 {
+    font-family: Copperplate Gothic Light;
+}
+
+p {
+    font-family: MV Boli;
+}
+
+section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    position: relative;
+}
