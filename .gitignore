@@ -4,5 +4,9 @@
 *.fls
 *.log
 *.gz
+
 lex.yy.c
 *.out
+
+*.docx
+*.docx#
