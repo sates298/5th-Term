@@ -1,6 +1,6 @@
 # Stanisław Woźniak
 
-export tangential
+export mstycznych
 
 # f - anonimowa funkcja
 # pf - pochodna funkcji 1 stopnia (także anonimowa funkcja)
@@ -12,11 +12,12 @@ export tangential
 # r - szukany punkt zerowy
 # v - wartość funkcji w punkcie r
 # it - liczba iteracji
-# err - informacja o błędzie {0,1,2}
+# err - informacja o błędzie {-1,0,1,2}
+    # -1 - dzielenie przez 0
     # 0 - metoda zbieżna
     # 1 - przekroczone maxit
     # 2 - pochodna bliska 0
-    function tangential(f,pf,x0::Float64, del::Float64, eps::Float64, maxit::Int)
+    function mstycznych(f,pf,x0::Float64, del::Float64, eps::Float64, maxit::Int)
         r = x0
         x = r - 1.0
         v = Float64(f(r))

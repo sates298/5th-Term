@@ -12,6 +12,6 @@ delta = epsilon = 0.5 * 10^(-5)
 
 maxit = 100
 
-println("Bisection: ", bisection(f, 1.5, 2.0, delta, epsilon))
-println("Newton: ", tangential(f, fp, 1.5, delta, epsilon, maxit))
-println("Secant: ", secant_lines(f, 1.0, 2.0, delta, epsilon, maxit))
+println("Bisection: ", mbisekcji(f, 1.5, 2.0, delta, epsilon))
+println("Newton: ", mstycznych(f, fp, 1.5, delta, epsilon, maxit))
+println("Secant: ", msiecznych(f, 1.0, 2.0, delta, epsilon, maxit))

@@ -10,5 +10,5 @@ g(x) = Base.MathConstants.e^x
 
 h(x) = f(x) - g(x)
 
-println("Score (bisection method [-1, 1]): ", bisection(h, -1.0, 1.0, delta, epsilon))
-println("Score (bisection method [1, 2]): ", bisection(h, 1.0, 2.0, delta, epsilon))
+println("Score (bisection method [-1, 1]): ", mbisekcji(h, 0.5, 0.75, delta, epsilon))
+println("Score (bisection method [1, 2]): ", mbisekcji(h, 1.0, 2.0, delta, epsilon))

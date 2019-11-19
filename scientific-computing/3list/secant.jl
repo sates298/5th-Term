@@ -1,6 +1,6 @@
 # Stanisław Woźniak
 
-export secant_lines
+export msiecznych
 
 # f - anonimowa funkcja
 # x0, x1 - przybliżenia początkowe
@@ -10,10 +10,11 @@ export secant_lines
 # r - szukany punkt zerowy
 # v - wartość funkcji w punkcie r
 # it - liczba iteracji
-# err - informacja o błędzie {0,1}
+# err - informacja o błędzie {-1,0,1}
+    # -1 - dzielenie przez 0
     # 0 - metoda zbieżna
     # 1 - przekroczone maxit
-    function secant_lines(f, x0::Float64, x1::Float64, del::Float64, eps::Float64,maxit::Int)
+    function msiecznych(f, x0::Float64, x1::Float64, del::Float64, eps::Float64,maxit::Int)
         it = 0
         err = 0
         r = x0

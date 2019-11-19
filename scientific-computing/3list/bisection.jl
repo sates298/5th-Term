@@ -1,6 +1,6 @@
 # Stanisław Woźniak
 
-export bisection
+export mbisekcji
 
 # f - anonimowa funkcja
 # a,b - przedział początkowy
@@ -13,7 +13,7 @@ export bisection
 # err - informacja o błędzie {0,1}
     # 0 - brak błędu
     # 1 - funkcja nie zmienia znaku na przedziale [a,b]
-    function bisection(f, a::Float64, b::Float64, del::Float64, eps::Float64)
+    function mbisekcji(f, a::Float64, b::Float64, del::Float64, eps::Float64)
         err = 0
         it = 0
         r = 0

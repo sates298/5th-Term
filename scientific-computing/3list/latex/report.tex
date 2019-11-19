@@ -6,17 +6,293 @@
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{geometry}
+\usepackage{amsmath}
+\usepackage[linesnumbered,ruled]{algorithm2e}
 
 
 \geometry{top=1.5cm, bottom=1.5cm, right=1.5cm, left=1.5cm}
 
 
-\title{Obliczenia naukowe\\Lista2}
+\title{Obliczenia naukowe\\Lista3}
 \author{Stanisław Woźniak}
 \date{}
 
 \begin{document}
     \maketitle
     \section{Zadanie 1.}
+    \subsection{Metoda Bisekcji}
+    \subsection{Opis}
+    Jedna z metod znajdowania miejsca zerowego funkcji ciągłej na podanym przedziale.\\
+    Metoda polega na połowieniu danego przedziału z każdą iteracją do momentu znalezienia szukanego $x$ z dokładnością do $\delta$ lub do momentu gdy $|f(x)| < \epsilon$
+    Z każdą iteracją jest definiowany nowy przedział. Jeden koniec ma w połowie poprzedniego przedziału. Natomiast drugi jest wybierami z dwóch poprzednich z warunkiem, że znak wartości funkcji na krańcach przedziału jest przeciwny.\\
+    Warunki początkowe:
+    \begin{enumerate}
+        \item Badana funkcja posiada miejsce zerowe.
+        \item Badan funkcja jest ciągła na przedziale [a,b]
+        \item Na krańcach przedziału wartość funkcji musi mieć przeciwne znaki.
+    \end{enumerate}
+    \subsection{Pseudokod}
+    \begin{algorithm}[H]
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+
+        \underline{Metoda Bisekcji} $(f, a,b, \delta,\epsilon)$\;
+        \Input{f - funkcja, [a,b] - przedział, $\delta$ - dokładność $x_{0}$, $\epsilon$ - dokładność $f(x_{0})$}
+        \Output{k, $x_{0}$, $f(x_{0})$}
+        $x_{0} \leftarrow 0;k \leftarrow 0$\;
+        \While{$|a - b| > \delta$}
+        {
+            $k++$\;
+            \uIf{$f(a)*f(b) < 0$}
+            {
+                $x_{0} \leftarrow a + \frac{b-a}{2}$\;
+            }
+            \Else{
+                return ''Error: Funkcja nie zmienia znaku w przedziale''\;
+            }
+
+            \If{$|f(x_{0})| < \epsilon$}
+            {
+                return $(k, x_{0}, f(x_{0}))$\;
+            }
+
+            \uIf{$f(x_{0})*f(a) < 0$}
+            {
+                $b \leftarrow x_{0}$\;
+            }\ElseIf{$f(x_{0})*f(b) < 0$}
+            {
+                $a \leftarrow x_{0}$\;
+            }
+        }
+        return $(k, x_{0}, f(x_{0}))$\;
+        \caption{Metoda Bisekcji}
+    \end{algorithm}
+    
+    \section{Zadanie 2.}
+    \subsection{Metoda Newtona (stycznych)}
+    \subsection{Opis}
+    Jest to algorytm iteracyjny przybliżajacy pierwiastek funkcji. Metoda polega na wyprowadzaniu stycznych z wybranego punktu $f(x_{0})$. Punkt przecięcia stworzonej stycznej z osią OX jest szukanym miejsciem zerowym. Jeśli się okarze, ze przybliżenie jest zbyt mało dokładne czynność jest powtarzana gdzie do $x_{0}$ przypisuje się wyznaczone poprzednio miejsce zerowy. 
+    \subsection{Pseudokod}
+    \begin{algorithm}[H]
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+
+        \underline{Metoda Bisekcji} $(f, f',x_{0}, \delta,\epsilon, maxit)$\;
+        \Input{f - funkcja, f' - pochodna funkcji, $x_{0}$ - przybliżenie początkowe, $\delta$ - dokładność $x_{0}$, $\epsilon$ - dokładność $f(x_{0})$, maxit - maksymalna liczba iteracji}
+        \Output{k, $x_{0}$, $f(x_{0})$}
+        $k \leftarrow 0; x_{1} \leftarrow x_{0} - 1; v \leftarrow f(x_{0})$\;
+        \While{$|x_{1} - x_{0}|> \delta$}
+        {
+            $k++$\;
+            \If{$k > maxit$}
+            {
+                return ''Error: Przekroczenie liczby iteracji''\;
+            }
+            \If{$|f'(x_{0})| < \epsilon$}
+            {
+                return ''Error: Pochodna bliska zeru''\;
+            }
+
+            $x_{1} \leftarrow x_{0}; x_{0} \leftarrow x_{0} - \frac{v}{f'(x_{0})}; v \leftarrow f(x_{0})$\;
+
+            \If{$|v| < \epsilon$}
+            {
+                return $(k, x_{0}, v)$\;
+            }
+        }
+        return $(k, x_{0}, v)$\;
+        \caption{Metoda Newtona}
+    \end{algorithm}
+    \section{Zadanie 3.}
+    \subsection{Metoda Siecznych}
+    \subsection{Opis}
+    Metoda wyznaczania przybliżenia miejsca zerowego funkcji. W tym algorytmi przyjmuje się, że podana funkcja jest ciągła, oraz na dostatecznie małym odcinku w przybliżeniu zmienia się w sposób liniowy. To założenie pozwala nam zastąpić dany fragment wykresu funkcji sieczną. Punkt przecięcia siecznej z osią OX jest szukanym przybliżeniem miejsca zerowego. Jeśli przybliżenie nie jest wystarczająco dokładne, czynność zostaje powtarzana przyjmując punkt wyliczony w poprzedniej iteracji jako koniec siecznej.
+    
+    Warunek powodzenia:\\
+    
+    $$\bigwedge_{n} (f(x_{n})f(x_{n-1}) < 0) $$
+    
+    \subsection{Pseudokod}
+    \begin{algorithm}[H]
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+
+        \underline{Metoda Siecznych} $(f, x_{0},x_{1}, \delta,\epsilon, maxit)$\;
+        \Input{f - funkcja, $x_{0}, x_{1}$ - przybliżenia początkowe, $\delta$ - dokładność $x_{0}$, $\epsilon$ - dokładność $f(x_{0})$, maxit - maksymalna liczba iteracji}
+        \Output{k, $x_{0}$, $f(x_{0})$}
+        $fa \leftarrow f(x_{0}); fb \leftarrow f(x_{1}); k \leftarrow 0$\;
+        \While{$|x_{1} - x_{0}| > \delta$}
+        {
+            $k++$\;
+            \If{$k > maxit$}
+            {
+                return ''Error: Przekroczenie liczby iteracji''\;
+            }
+
+            \If{$|fa| > |fb|$}
+            {
+                $x_{0} \leftrightarrow x_{1}; fa \leftrightarrow fb$\;
+            }
+
+            $s \leftarrow \frac{(x_{0} - x_{1})}{fb - fa}$\;
+            $x_{1} \leftarrow x_{0}; fb \leftarrow fa$\;
+            $x_{0} \leftarrow x_{0} - fa*s; fa \leftarrow f(x_{0})$\;
+            \If{$|fa| < \epsilon$}
+            {
+                return $(k, x_{0}, fa)$\;
+            }
+        }
+        return $(k, x_{0}, fa)$\;
+        \caption{Metoda Siecznych}
+    \end{algorithm}
+    \section{Zadanie 4.}
+    \subsection{Problem}
+    Problem polegał na wyznaczeniu pierwiastka równania przy użyciu zaimplementowanych metod w poprzednich zadaniach.
+    
+    Równanie:
+    \[\sin{x} - (\frac{1}{2}x)^{2} = 0 \]
+
+    Dla każdej z metod zostały użyte te same dokładności $\delta$ oraz $\epsilon$ równe $\frac{1}{2} * 10^{-5}$.\\
+    Jednakże początkowe przybliżenia oraz przedziały dla każdej z nich zostały zdefiniowane inne.
+    \begin{enumerate}
+        \item Metoda bisekcji - przedział początkowy $[1.5, 2]$
+        \item Metoda Newtona (Metoda stycznych) - przybliżenie początkowe $x_{0} = 1.5$
+        \item Metoda siecznych - przybliżenia poczatkowe $x_{0} = 1$, $x_{1} = 2$
+    \end{enumerate}
+    \subsection{Wyniki}
+    Na potrzeby rozwiązania równania danymi metodami lewa strona równania została uznana za funkcję f
+    Oznaczenia:\\
+    r - znalezione miejsce zerowe z dokładnością do $\delta$ \\
+    v - wartość funkcji w punkcie r z dokładnością do $\epsilon$ \\
+    it - liczba wykonanych iteracji potrzebnych do znalezienia pierwiastka \\
+    err - powiadomienie o błędzie
+
+    Prawidłowy wynik: r = 0 , v = 0.
+    \begin{center}
+        \begin{tabular}{c|c|c|c|c}
+            metoda & r & v & it & err\\
+            \hline
+            bisekcji & 1.9337539672851562 & -2.7027680138402843e-7 & 16 & Brak błędu\\
+            stycznych & 1.933749984135789 & 4.995107540040067e-6 & 13 & Brak błędu\\
+            siecznych & 1.933753644474301 & 1.564525129449379e-7 & 4 & Brak błędu\\
+        \end{tabular}
+    \end{center}
+    \subsection{Wnioski}
+
+    \section{Zadanie 5.}
+    \subsection{Problem}
+    Zadanym problemem było znaleźć punkty przecięcia się wykresów dwóch funkcji.
+    \begin{enumerate}
+        \item $f(x) = 3x$
+        \item $g(x) = e^{x}$
+    \end{enumerate}
+    Dokładność obliczeniowe wynosiły: $\delta = \epsilon = 10^{-4}$\\
+    Aby znaleźć odpowiednie punkty przecięcia należało stworzyć funkcję pomocniczą h.
+    \[h(x) = f(x) - g(x)\]
+    Ten sposób zapewniał znalezienie punkty przeciecia wykresów funkcji f oraz g metodą znalezienia miejsc zerowych funkcji h.\\
+    Do znalezienia rozwiązania należało użyć metodę bisekcji.
+    \subsection{Wyniki}
+    [a,b] - przedział początkowy \\
+    r - znalezione miejsce zerowe z dokładnością do $\delta$ \\
+    v - wartość funkcji w punkcie r z dokładnością do $\epsilon$ \\
+    it - liczba wykonanych iteracji potrzebnych do znalezienia pierwiastka \\
+    err - powiadomienie o błędzie
+
+    Prawidłowy wynik (przybliżony): $r_{1}$ = 0.619061, $r_{2}$ = 1.51213.
+    \begin{center}
+        \begin{tabular}{c|c|c|c|c}
+            [a, b] & r & v & it & err\\
+            \hline
+            $[0.5, 0.7]$ & 0.619140625 & 9.066320343276146e-5 & 9 & Brak błędu\\
+            $[-1, 1]$ & 0.619140625 & 9.066320343276146e-5 & 10 & Brak błędu\\
+            $[0.0, 1.5]$ & 0.61907958984375 & 2.091677592419572e-5 & 13 & Brak błędu\\
+            $[1, 2]$ & 1.5120849609375 & 7.618578602741621e-5 & 13 & Brak błędu\\
+            $[1.5, 1.7]$ & 1.512109375 & 3.868007140983565e-5 & 9 & Brak błędu\\
+            $[-1, 2]$ & - & - & - & Funkcja nie zmienia znaku na przedziale [a,b]\\
+            $[-10, 0]$ & - & - & - & Funkcja nie zmienia znaku na przedziale [a,b]\\
+            $[1, 1.5]$ & - & - & - & Funkcja nie zmienia znaku na przedziale [a,b]\\
+            $[2, 10]$ & - & - & - & Funkcja nie zmienia znaku na przedziale [a,b]
+        \end{tabular}
+    \end{center}
+    \subsection{Wnioski}
+
+    \section{Zadanie 6.}
+    \subsection{Problem}
+    Należało znaleźć miejsca zerowe trzema metodami (bisekcji, stycznych oraz siecznych) dwóch funkcji:
+    \begin{enumerate}
+        \item $f(x) = e^{1-x} - 1$ (prawidłowe rozwiązanie: x = 1)
+        \item $g(x) = xe^{-x}$ (prawidłowe rozwiązanie: x = 0)
+    \end{enumerate}
+    Obliczenia należało wykonać z dokłądnością $\delta = \epsilon = 10^{-5}$\\
+    Także zadaniem było dobrać odpowiedni przedział i przybliżenia początkowe.
+    \subsection{Wyniki}
+    r - znalezione miejsce zerowe z dokładnością do $\delta$ \\
+    v - wartość funkcji w punkcie r z dokładnością do $\epsilon$ \\
+    it - liczba wykonanych iteracji potrzebnych do znalezienia pierwiastka \\
+    err - powiadomienie o błędzie
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{6}{|c|}{Metoda bisekcji}\\
+            \hline
+            funkcja & [a,b] & r & v & it & err\\
+            \hline
+            f & $[0.5, 2]$ & 0.9999923706054688 & 7.629423635080457e-6 & 16 & Brak błędu\\
+            f & $[-0.1, 2]$ & 1.0000038146972656 & -3.814689989667386e-6 & 17 & Brak błędu\\
+            f & $[0.0, 2]$ & 1.0 & 0.0 & 1 & Brak błędu\\
+            f & $[-100, 100]$ & 0.9999990463256836 & 9.536747711536009e-7 & 23 & Brak błędu\\
+            f & $[0.99999, 20]$ & 1.0000081198215485 & -8.119788582838794e-6 & 20 & Brak błędu\\
+            \hline
+            g & $[-0.5, 1]$ & -7.62939453125e-6 & -7.629452739132958e-6 & 16 & Brak błędu\\
+            g & $[-0.5, 0.5]$ & 0.0 & 0.0 & 1 & Brak błędu\\
+            g & $[-0.1, 4]$ & 3.8146972656107834e-6 & 3.8146827137233106e-6 & 17 & Brak błędu\\
+            g & $[-100, 101]$ & 4.410743713378906e-6 & 4.410724258761706e-6 & 23 & Brak błędu\\
+            \hline
+        \end{tabular}
+    \end{center}
+    
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{6}{|c|}{Metoda Newtona}\\
+            \hline
+            funkcja & x0 & r & v & it & err\\
+            \hline
+            f & 4 & 0.9999999995278234 & 4.721765201054495e-10 & 21 & Brak błędu\\
+            f & 1 & 0.9999999810061002 & 1.8993900008368314e-8 & 5 & Brak błędu\\
+            f & 11 & NaN & NaN & 2 & Wyjście poza zakres\\
+            f & 101 & NaN & NaN & 1 & Pochodna bliska zeru\\
+            \hline
+            g & -1 & -3.0642493416461764e-7 & -3.0642502806087233e-7 & 5 & Brak błędu\\
+            g & 1 & NaN & NaN & 1 & Pochodna bliska zeru\\
+            g & 2 & 14.398662765680003 & 8.036415344217211e-6 & 10 & Brak błędu\\
+            g & 11 & 14.272123938290518 & 9.040322779745372e-6 & 3 & Brak błędu\\
+            g & 101 & NaN & NaN & 1 & Pochodna bliska zeru\\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{7}{|c|}{Metoda siecznych}\\
+            \hline
+            funkcja & x1 & x2 & r & v & it & err\\
+            \hline
+            f & 0.5 & 2 & 1.000000014307199 & -1.4307198870078253e-8 & 6 & Brak błędu\\
+            f & -0.1 & 2 & 1.0000032272298756 & -3.227224668056472e-6 & 6 & Brak błędu\\
+            f & 0 & 2 & 1.0000017597132702 & -1.7597117218937086e-6 & 6 & Brak błędu\\
+            f & -100 & 100 & 100.0 & -1.0 & 1 & Brak błędu\\
+            f & 0.99999 & 20 & 1.0000000009000212 & -9.000211687038018e-10 & 2 & Brak błędu\\
+            \hline
+            g & -1 & 0.5 & -1.1737426154042664e-6 & -1.1737439930768023e-6 & 7 & Brak błędu\\
+            g & -0.5 & 0.5 & 5.38073548562323e-6 & 5.380706533386756e-6 & 6 & Brak błędu\\
+            g & -0.1 & 4 & 14.32970132001514 & 8.568936563065177e-6 & 14 & Brak błędu\\
+            g & -100 & 100 & 100.0 & 3.7200759760208363e-42 & 1 & Brak błędu\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \subsection{Wnioski}
 
 \end{document}
