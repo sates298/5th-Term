@@ -8,7 +8,11 @@
 \usepackage{geometry}
 \usepackage{amsmath}
 \usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{caption}
 
+
+\graphicspath{{../plots/}}
 
 \geometry{top=1.5cm, bottom=1.5cm, right=1.5cm, left=1.5cm}
 
@@ -71,7 +75,7 @@
     \section{Zadanie 2.}
     \subsection{Metoda Newtona (stycznych)}
     \subsection{Opis}
-    Jest to algorytm iteracyjny przybliżajacy pierwiastek funkcji. Metoda polega na wyprowadzaniu stycznych z wybranego punktu $f(x_{0})$. Punkt przecięcia stworzonej stycznej z osią OX jest szukanym miejsciem zerowym. Jeśli się okarze, ze przybliżenie jest zbyt mało dokładne czynność jest powtarzana gdzie do $x_{0}$ przypisuje się wyznaczone poprzednio miejsce zerowy. 
+    Jest to algorytm iteracyjny przybliżajacy pierwiastek funkcji. Metoda polega na wyprowadzaniu stycznych z wybranego punktu $f(x_{0})$. Punkt przecięcia stworzonej stycznej z osią OX jest szukanym miejsciem zerowym. Jeśli się okaże, ze przybliżenie jest zbyt mało dokładne czynność jest powtarzana gdzie do $x_{0}$ przypisuje się wyznaczone poprzednio miejsce zerowe. 
     \subsection{Pseudokod}
     \begin{algorithm}[H]
         \SetKwInOut{Input}{Input}
@@ -110,7 +114,7 @@
     
     Warunek powodzenia:\\
     
-    $$\bigwedge_{n} (f(x_{n})f(x_{n-1}) < 0) $$
+    $$\bigwedge_{n>0} (f(x_{n})f(x_{n-1}) < 0) $$
     
     \subsection{Pseudokod}
     \begin{algorithm}[H]
@@ -167,7 +171,7 @@
     it - liczba wykonanych iteracji potrzebnych do znalezienia pierwiastka \\
     err - powiadomienie o błędzie
 
-    Prawidłowy wynik: r = 0 , v = 0.
+    Prawidłowy wynik: $r_{0} = 0$, $r_{1} = 1.93375$, $v_{0} = v_{1} = 0$.
     \begin{center}
         \begin{tabular}{c|c|c|c|c}
             metoda & r & v & it & err\\
@@ -178,6 +182,9 @@
         \end{tabular}
     \end{center}
     \subsection{Wnioski}
+    Analizując wyniki, można zauważyć, że każda z metod podała jeden z dwóch prawidłowych pierwiastków. Metoda bisekcji nie podała drugiego ponieważ w podanym przedziale znajdował się tylko jeden, ale także dlatego, że algorytm działa poprawnie, kiedy w przedziale (początkowym lub stworzonym w czasie działania algorytmu) znajduje się nieparzysta ilość pierwiastków (tzn. wartości funkcji na krańcach przedziału mają różne znaki). Natomiast metoda stycznych znalazła pierwiastek najbliższy w kierunku zbieżności, ponieważ przybliżenie początkowe było ustalone w taki sposób, że metoda Newtona z tego punktu zbiegała do pierwiastka $r_{1}$. Metoda siecznych wyznaczyła także to samo miejsce zerowe, ponieważ przybliżenia początkowe zostały tak dobrane, że pomiędzy nimi był tylko jeden punkt zerowy. Jednakże metoda siecznych nie działałaby poprawnie gdyby pomiędzy tymi punktami znalazłby się także drugi pierwiastek, gdyż założeniem poprawności tejmetody jest, że wartości funkcji na podanych przybliżeniach są różnego znaku.
+
+    Porównując wartości z tabeli także można zauważyć, że metoda bisekcji do znalezienia pierwiastka potrzebowała najwiecej iteracji. Zachodzi takie zjawisko, ponieważ metoda bisekcji ma zbieżność liniową, natomiast metody Newtona i siecznych mają zbieżność kwadratową.
 
     \section{Zadanie 5.}
     \subsection{Problem}
@@ -199,6 +206,13 @@
     err - powiadomienie o błędzie
 
     Prawidłowy wynik (przybliżony): $r_{1}$ = 0.619061, $r_{2}$ = 1.51213.
+    \begin{figure}[H]
+        \caption{Funkcja h}
+        \centering
+        \begin{minipage}{0.4\textwidth}
+            \includegraphics[width=\linewidth]{zad5}
+        \end{minipage}
+    \end{figure}
     \begin{center}
         \begin{tabular}{c|c|c|c|c}
             [a, b] & r & v & it & err\\
@@ -215,6 +229,9 @@
         \end{tabular}
     \end{center}
     \subsection{Wnioski}
+    Przedziały, które zostały podane w tabeli zostały dobrane po obserwacji wykresu. Po wynikach można zaobserwować, że metoda bisekcji poprawnie znajduje pierwiastki tylko jesli prawidłowo zdefiniujemy przedziały. Można także zaobserwować różnice w wynikach. Jeśli wyliczony pierwiastek różni się o więcej niż $\delta$ od wyliczonego (tego samego) pierwiastka zaczynając z innego przedziału, wtedy wartość w pierwiastku ($h(r)$) jest dokładny do $\epsilon$. Także można zaobserwować, że ilość iteracji nie jest zawsze zależna od wielkości przedziału. Dzieje się to dlatego, że może się zdarzyć, że przy połowieniu jednego przedziału znajdzie się szukane miejsce, gdy w przypadku wyliczania pierwiastka zaczynając z drugim przedziałem skończy się iteracje przy przedziale < $\delta$. 
+
+    W tym zadaniu pokazane zostało, że metoda bisekcji nie jest dobrą metodą w przypadku gdy nie znamy przedziałów funkcji, w których jest tylko jedno miejsce zerowe. Po wynikach możemy zauważyć, że źle dobrane przedziały zwrócą błąd zamiast poprawnego wyniku. Można temu zapobiec przez użycie innej metody, która nie potrzebuje znajomości zmiany znaku w wartościach funkcji, albo tak jak opisane zostało powyżej, wywołanie metody bisekcji po poprzednio przeanalizowaniu wykresu funkcji.
 
     \section{Zadanie 6.}
     \subsection{Problem}
@@ -226,6 +243,29 @@
     Obliczenia należało wykonać z dokłądnością $\delta = \epsilon = 10^{-5}$\\
     Także zadaniem było dobrać odpowiedni przedział i przybliżenia początkowe.
     \subsection{Wyniki}
+    \begin{figure}[H]
+        \caption{Funkcja f}
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{fminus10to10}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{fminus2to2}
+        \end{minipage}
+    \end{figure}
+    \begin{figure}[H]
+        \caption{Funkcja g}
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{gminus10to10}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{gminus2to2}
+        \end{minipage}
+    \end{figure}
+
     r - znalezione miejsce zerowe z dokładnością do $\delta$ \\
     v - wartość funkcji w punkcie r z dokładnością do $\epsilon$ \\
     it - liczba wykonanych iteracji potrzebnych do znalezienia pierwiastka \\
@@ -283,16 +323,23 @@
             f & 0.5 & 2 & 1.000000014307199 & -1.4307198870078253e-8 & 6 & Brak błędu\\
             f & -0.1 & 2 & 1.0000032272298756 & -3.227224668056472e-6 & 6 & Brak błędu\\
             f & 0 & 2 & 1.0000017597132702 & -1.7597117218937086e-6 & 6 & Brak błędu\\
-            f & -100 & 100 & 100.0 & -1.0 & 1 & Brak błędu\\
+            f & -100 & 101 & 101.0 & -1.0 & 1 & Brak błędu\\
             f & 0.99999 & 20 & 1.0000000009000212 & -9.000211687038018e-10 & 2 & Brak błędu\\
             \hline
             g & -1 & 0.5 & -1.1737426154042664e-6 & -1.1737439930768023e-6 & 7 & Brak błędu\\
             g & -0.5 & 0.5 & 5.38073548562323e-6 & 5.380706533386756e-6 & 6 & Brak błędu\\
             g & -0.1 & 4 & 14.32970132001514 & 8.568936563065177e-6 & 14 & Brak błędu\\
-            g & -100 & 100 & 100.0 & 3.7200759760208363e-42 & 1 & Brak błędu\\
+            g & -100 & 101 & 101.0 & 1.3822248658855914e-42 & 1 & Brak błędu\\
             \hline
         \end{tabular}
     \end{center}
     \subsection{Wnioski}
+    Obserwując wykresy obu podanych funkcji możemy odpowiednio dobrać przybliżenia początkowe. Natomiast porównując wyniki możemy zaobserwować różnice w dokładnościach metod oraz błędy w zależności od dobranych parametrów.
+
+     Metoda bisekcji, jak można zauważyć po wynikach w tabeli, w każdym testowanym przypadku znajdował prawidłowy wynik z dokładnością do $\delta$. Jednakże porównując do pozostałych metod można zaobserwować, że algorytm potrzebuje najwiekszej liczby iteracji do wyznaczenia odpowiedniego wyniku. Dzieje się to dlatego, że metoda bisekcji zbiega liniowo, kiedy to metody Newtona i siecznych mają rząd 2, czyli zbiegają kwadratowo.
+
+     Można zauważyć, że metoda Newtona przy pewnych przybliżeniach początkowych nie zbiega do wartości liczbowej. Dzieje się to dlatego, że przy wybraniu pewnych parametrów metoda ta jest rozbieżna, co oznacza, że każdy kolejny punkt sprawdzanej stycznej odbiega od szukanego miejsca zerowego. Patrząc na błędy, które pojawiają się w przypadkach rozbieżności możemy zauważyć, że iterując po kolejnych punktach stycznych do wykresu wyszliśmy poza zakres Float64 co oznacza, że metoda jest rozbieżna. W innym przypadku metoda nie zbiega do wartości liczbowej ponieważ pochodna w znalezionym punkcie była bliska zeru, co oznacza także rozbieżność metody. 
+
+     W przypadku metody siecznych, obserwując wyniki można zauważyć zauważyć, że przy funkcji $g$ wartości r znacznie się od siebie różnią. Można wytłumaczyć to obserwując wykres oraz analizując algorytm. Algorytm kończy swoje działanie gdy znajdzie $g(x) < \epsilon$. $\epsilon$, który został użyty do obliczeń był dokładności $10^{-5}$. Natomiast w tabeli widzimi wartości funkcji $g$ w punktach r, które są poniżej $\epsilon$. Z tego wynika, że algorytm zadziałał poprawnie, ale wyniki odbiegają od rzeczywistego miejsca zerowego z powodu precyzji obliczeń. W przypadku funkcji $f$ większość wyników jest prawidłowa z dokładnością do $\delta$ co oznacza, że metoda poprawnie działa dla podanych punktów poczatkowych. Jeden z testowanych przedziałów ma znacznie różniący się wynik od pozostałych. Analizując wykres można wywnioskować dlaczego tak się dzieje. Otóż algorytm działa w taki sposób, że tworzy sieczną pomiędzy danymi punktami. Punkt potrzebny do kolejnej iteracji jest ustalany poprzez sprawdzenie w którym punkcie wyznaczona sieczna przecina oś OX. Gdy spojrzy się na wykres można zauwazyć, że $f(-100)$ oraz $f(101)$ leża na układzie współrzędnych względem siebie w takich punktach, że gdy poprowadzi się sieczną pomiędzy tymi punktami, punkt przecięcia osi OX przez sieczną jest nadal w punkcie $x_{0} = 101 + \delta$. Takie zjawisko sprawia, że algorytm zadziałał poprawnie, lecz zwrócił nieprawidłowy wynik.
 
 \end{document}
