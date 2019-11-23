@@ -3,25 +3,33 @@
 push!(LOAD_PATH, ".")
 import Methods
 using Methods
+using Test
 
 
-delta = epsilon = 10^(-5)
-it = 10000
+delta = epsilon = 10^(-10)
+it = 1000
 
-f(x) = x^2 + 2*x + 1
-f_(x) = 2*x + 2
+f(x) = x^2 + 3*x
+f_(x) = 2*x + 3
+g(x) = log(x)/x
+g_(x) = (1 - log(x))/(x^2)
+h(x) = Base.MathConstants.e^x - 5
+h_(x) = Base.MathConstants.e^x
 
-a = 0.0
-b = 2.0
+@testset "bisekcja" begin
+    @test isapprox(mbisekcji(f, -4.0, -1.0, delta, epsilon)[1],-3)
+    @test isapprox(mbisekcji(g, 0.5, 2.0, delta, epsilon)[1],1)
+    @test isapprox(mbisekcji(h, 1.0, 2.0, delta, epsilon)[1],1.6094379)
+end
 
-x0 = 5.0
+@testset "Newton" begin
+    @test isapprox(mstycznych(f, f_, -4.0, delta, epsilon, it)[1],-3)
+    @test isapprox(mstycznych(g, g_, 0.5, delta, epsilon, it)[1],1)
+    @test isapprox(mstycznych(h, h_, 1.0, delta, epsilon, it)[1],1.6094379)
+end
 
-x01 = -2.0
-x1 = 4.0
-
-
-println("bisekcja a=", a, " b=", b, " wynik=",mbisekcji(f, a, b, delta, epsilon))
-
-println("\nnewton x0=", x0, " wynik=",mstycznych(f, f_, x0, delta, epsilon, it))
-
-println("\nsieczne x0=", x01, " x1=", x1, " wynik=",msiecznych(f, x01, x1, delta, epsilon, it))
+@testset "Sieczne" begin
+    @test isapprox(msiecznych(f, -3.5, -2.0, delta, epsilon, it)[1],-3)
+    @test isapprox(msiecznych(g, 0.6, 1.7, delta, epsilon, it)[1],1)
+    @test isapprox(msiecznych(h, 1.0, 2.0, delta, epsilon, it)[1],1.6094379)
+end
