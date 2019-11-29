@@ -1,4 +1,4 @@
-import { initPuzzle, _stage, _canvas, _pieceWidth, _pieceHeight, _puzzleHeight, _puzzleWidth, _img} from "./init.js";
+import { initPuzzle, _stage, _canvas, _pieceWidth, _pieceHeight, _puzzleHeight, _puzzleWidth, _spieceWidth, _spieceHeight, _spuzzleHeight, _spuzzleWidth, _ocImg} from "./init.js";
 import { _red, _pieces } from "./setup.js";
 
 const PUZZLE_HOVER_TINT = '#009900';
@@ -62,7 +62,7 @@ export function updatePuzzle(e) {
             _stage.fillStyle = 'red';
             _stage.fillRect(piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
         } else {
-            _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
+            _stage.drawImage(_ocImg, piece.sx, piece.sy, _spieceWidth, _spieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
             _stage.strokeRect(piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
         }
         if (piece == checkPiece()) {
@@ -97,13 +97,13 @@ function resetPuzzleAndCheckWin() {
     for (i = 0; i < _pieces.length; i++) {
         piece = _pieces[i];
         if (piece != _red) {
-            _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
+            _stage.drawImage(_ocImg, piece.sx, piece.sy, _spieceWidth, _spieceHeight, piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
             _stage.strokeRect(piece.xPos, piece.yPos, _pieceWidth, _pieceHeight);
         } else {
             _stage.fillStyle = 'red';
             _stage.fillRect(piece.xPos, piece.yPos, _pieceWidth, _pieceHeight)
         }
-        if (piece.xPos != piece.sx || piece.yPos != piece.sy) {
+        if (piece.xPos != piece.fx || piece.yPos != piece.fy) {
             gameWin = false;
         }
     }
