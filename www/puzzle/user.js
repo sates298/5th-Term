@@ -28,6 +28,19 @@ export function changeImgAddr(newAddr){
     init(imgAddr);
 }
 
+function loadImg(url){
+    return new Promise((resolve, reject) => {
+        let img = new Image();
+        img.addEventListener('load', e => resolve(img));
+        img.addEventListener('error', () => {
+            reject(new Error('Failed to load image url: ${url}'));
+        });
+        img.src = url;
+        img.className = 'picture';
+        img.id = '${i}';
+    });
+}
+
 export function generateGallery(){
     var gallery = document.getElementById("gallery");
     var imgs = [];
@@ -36,12 +49,10 @@ export function generateGallery(){
     }
 
     for(let i =0; i<imgs.length; i++){
-        let img = document.createElement('img');
-        img.className = 'picture';
-        img.id = '${i}'
-        img.src = imgs[i];
-        img.addEventListener('click', () => changeImgAddr(imgs[i]));
-        gallery.appendChild(img);
+        loadImg(imgs[i]).then(img => {
+            gallery.appendChild(img);
+            img.addEventListener('click', () => changeImgAddr(img.src));
+        })
     }
 }
 
