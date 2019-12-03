@@ -1,5 +1,6 @@
-export warNewton
+# Stanisław Woźniak
 
+export warNewton
 
 #Inpput
 # x – wektor długości n + 1 zawierający węzły x0, . . . , xn
@@ -12,6 +13,13 @@ export warNewton
 # nt – wartość wielomianu w punkcie t.
 
 function warNewton(x::Vector{Float64}, fx::Vector{Float64}, t::Float64)
+    n = length(x)
+    wn = fx[n]
+    wk = wn
+    for k = n-1:-1:1
+        wk = fx[k] + (t - x[k])*wk  
+    end
 
-
+    nt = wk
+    return nt
 end

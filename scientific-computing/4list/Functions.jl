@@ -1,3 +1,5 @@
+# Stanisław Woźniak
+
 module Functions
 include("difference.jl")
 include("newton.jl")
