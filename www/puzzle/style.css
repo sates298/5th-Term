@@ -14,9 +14,19 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
 }
 
 .picture {
     width: 20%;
     height:auto;
+}
+
+@media only screen and (max-width: 800px){
+    #gallery{
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 }
