@@ -21,6 +21,11 @@ function setCanvas() {
     _canvas = document.getElementById('canvas');
     _stage = _canvas.getContext('2d');
     _canvas.style.border = "1px solid black";
+
+    var x = window.matchMedia("(max-width: 800px)")
+    if(x.matches){
+        _canvas.width = 300;
+    }
 }
 
 
@@ -52,6 +57,7 @@ export function initPuzzle() {
 }
 
 function onImage(e) {
+
     setCanvas();
 
     _canvas.height = _canvas.width * (_img.height / _img.width);
