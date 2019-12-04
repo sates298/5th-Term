@@ -1,13 +1,10 @@
-
+# Stanisław Woźniak
 push!(LOAD_PATH, ".")
 import Functions
 using Functions
 using Plots
 
-# n = [5,10, 15]
-
-
-a(x) = abs(x)
+a(x) = Base.MathConstants.e^x
 a_a = 0.0
 a_b = 1.0
 

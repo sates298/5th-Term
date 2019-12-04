@@ -21,10 +21,20 @@ function rysujNnfx(f, a::Float64, b::Float64, n::Int)
     end
 
     fx = ilorazyRoznicowe(x, fv)
-    Nnfx(t) = warNewton(x, fx, t)
+    
 
+    plotx = zeros(0)
+    plotfx = zeros(0)
+    points_no = 100
+    h = (b-a)/(points_no - 1)
+    for k=0:(points_no - 1)
+        xk = a + k*h;
+        append!(plotx, xk)
+        append!(plotfx, warNewton(x, fx, xk))
+    end
+    
     # todo dodać punkty dla dokłądnego wykresu
 
-
-    plot(Nnfx, a, b)
+    plot(plotx, plotfx)
+    plot!(f, a, b)
 end
