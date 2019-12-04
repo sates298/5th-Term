@@ -33,8 +33,6 @@ function rysujNnfx(f, a::Float64, b::Float64, n::Int)
         append!(plotfx, warNewton(x, fx, xk))
     end
     
-    # todo dodać punkty dla dokłądnego wykresu
-
     plot(plotx, plotfx)
     plot!(f, a, b)
 end
