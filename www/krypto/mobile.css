@@ -1,0 +1,42 @@
+@media (max-width: 600px) {
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0px;
+    }
+
+    #header{
+        background-color: goldenrod;
+        text-align:center;
+        font-size: 4vh;
+        grid-area: header;
+        font-family: Comic Sans MS;
+    }
+
+    #section-nav{
+        display: none;
+    }
+
+    #menu{
+        min-height: 10vh;
+        height: 10vh;
+    }
+
+    .redirect{
+        margin: 1vw;
+    }
+
+    nav{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 1vw;
+
+        font-size: 1.5vh;
+    }
+
+    #content{
+        font-size: 1.5vh;
+    }
+}

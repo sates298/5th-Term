@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Micala</title>
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="mobile.css"/>
     <script src="latex.js"></script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta/katex.min.css" integrity="sha384-L/SNYu0HM7XECWBeshTGLluQO9uVI1tvkCtunuoUbCHHoTH76cDyXty69Bb9I0qZ" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta/katex.min.js" integrity="sha384-ad+n9lzhJjYgO67lARKETJH6WuQVDDlRfj81AJJSswMyMkXTD49wBj5EP004WOY6" crossorigin="anonymous"></script>
 </head>
-<body onload="renderPseudocodes()">               
+<body onload="renderPseudocodes()">
     <div id="header" >
         <header>
                 Schemat Goldwasser-Micali szyfrowania probabilistycznego
@@ -25,8 +26,8 @@
     <div id="menu">
         <nav>
             <a class="redirect" href="index.html">Strona startowa</a>
-            <a class="redrect" href="micala.html">Schemat Goldwasser-Micali szyfrowania probabilistycznego</a>
-            <a class="redrect" href="shamir.html">Schemat progowy $(t, n)$ dzielenia sekretu Shamira</a>
+            <a class="redirect" href="micala.html">Schemat Goldwasser-Micali szyfrowania probabilistycznego</a>
+            <a class="redirect" href="shamir.html">Schemat progowy $(t, n)$ dzielenia sekretu Shamira</a>
         </nav>
     </div>
     <div id="section-nav">
@@ -53,20 +54,27 @@
             <div class="items">
                 <h3 class="item-header">Definicja</h3>
                 <p class="description">
-                    Niech $p$ będzie nieparzystą liczbą pierwszą a $a$ liczbą całkowitą. Symbol Legendre'a $(\frac{a}{p})$ jest zdefiniowany jako:
-                    $$(\frac{a}{p}) = TODO$$
+                    Niech $p$ będzie nieparzystą liczbą pierwszą a $a$ liczbą całkowitą. Symbol Legendre'a $\left(\frac{a}{p}\right)$ jest zdefiniowany jako:
+                    $$\left(\frac{a}{p} \right) =
+                        \begin{cases}
+                            \begin{array}{r l l}
+                                0 & jeżeli & p|a\\
+                                1 & jeżeli & a \in Q_p\\
+                                -1 & jeżeli & a \in \overline{Q}_p
+                            \end{array}
+                        \end{cases}$$
                 </p>
                 <h3 class="item-header">Własność</h3>
                 <p class="description">
                     Niech $a,b \in \mathbb{Z}$, zaś $p$ to nieparzysta liczba pierwsza. Wówczas:
                     <ul>
-                        <li>$(\frac{a}{p}) \equiv a^{\frac{(p-1)}{2}}$ (mod $p$)</li>
-                        <li>$(\frac{ab}{p}) = (\frac{a}{p})(\frac{b}{p})$</li>
-                        <li>$a \equiv b$ (mod $p$) $\implies (\frac{a}{p}) = (\frac{b}{p})$</li>
-                        <li>$(\frac{2}{p}) = (-1)^{\frac{(p^2 - 1)}{8}}$</li>
+                        <li>$\left(\frac{a}{p}\right) \equiv a^{\frac{(p-1)}{2}}$ (mod $p$)</li>
+                        <li>$\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)$</li>
+                        <li>$a \equiv b$ (mod $p$) $\implies \left(\frac{a}{p}\right) =\left(\frac{b}{p}\right)$</li>
+                        <li>$\left(\frac{2}{p}\right) = (-1)^{\frac{(p^2 - 1)}{8}}$</li>
                         <li>
                             Jeżeli $q$ jest nieparzystą liczbą pierwszą inną od $p$ to:
-                             $$(\frac{p}{q}) = (\frac{q}{p})(-1)^{(\frac{(p-1)(q-1)}{4})}$$
+                             $$\left(\frac{p}{q}\right) = \left(\frac{q}{p}\right)(-1)^{\left(\frac{(p-1)(q-1)}{4}\right)}$$
                         </li>
                     </ul>
                 </p>
@@ -77,25 +85,25 @@
             <div class="items">
                 <h3 class="item-header">Definicja</h3>
                 <p class="description">
-                    Niech $n \geq 3$ jest liczbą nieparzystą a jej rozkład na czynniki pierwsze to $n=p_1^{e_1}p_2^{e_2}...p_k^{e_k}$. Symbol Jacobiego $(\frac{a}{n})$ jest zdefiniowany jako:
-                    $$(\frac{a}{n}) = (\frac{a}{p_1})^{e_1}(\frac{a}{p_2})^{e_2}...(\frac{a}{p_k})^{e_k} $$
+                    Niech $n \geq 3$ jest liczbą nieparzystą a jej rozkład na czynniki pierwsze to $n=p_1^{e_1}p_2^{e_2}...p_k^{e_k}$. Symbol Jacobiego $\left(\frac{a}{n}\right)$ jest zdefiniowany jako:
+                    $$\left(\frac{a}{n}\right) = \left(\frac{a}{p_1}\right)^{e_1}\left(\frac{a}{p_2}\right)^{e_2}...\left(\frac{a}{p_k}\right)^{e_k} $$
                     Jeżeli $n$ jest liczbą pierwszą, to symbol Jacobiego jest symbolem Legendre'a.
                 </p>
                 <h3 class="item-header">Własność</h3>
                 <p class="description">
                     Niech $a,b \in \mathbb{Z}$, zaś $m,n \geq 3$ to nieparzyste liczby całkowite. Wówczas:
                     <ul>
-                        <li>$(\frac{a}{n})=0,1,$albo $-1$. Ponadto $(\frac{a}{n}) = 0 \iff gcd(a,n) \ne 1$</li>
-                        <li>$(\frac{ab}{n}) = (\frac{a}{n})(\frac{b}{n})$</li>
-                        <li>$(\frac{a}{mn})=(\frac{a}{m})(\frac{a}{n})$</li>
-                        <li>$a \equiv b$ (mod $n$)$\implies (\frac{a}{n}) = (\frac{b}{n})$</li>
-                        <li>$(\frac{1}{n}) = 1$</li>
-                        <li>$(\frac{-1}{n}) = (-1)^{\frac{(n-1)}{2}}$</li>
-                        <li>$(\frac{2}{n}) = (-1)^{\frac{(n^2-1)}{8}}$</li>
-                        <li>$(\frac{m}{n}) = (\frac{n}{m})(-1)^{\frac{(m-1)(n-1)}{4}}$</li>
+                        <li>$\left(\frac{a}{n}\right)=0,1,$albo $-1$. Ponadto $\left(\frac{a}{n}\right) = 0 \iff gcd(a,n) \ne 1$</li>
+                        <li>$\left(\frac{ab}{n}\right) = \left(\frac{a}{n}\right)\left(\frac{b}{n}\right)$</li>
+                        <li>$\left(\frac{a}{mn}\right)=\left(\frac{a}{m}\right)\left(\frac{a}{n}\right)$</li>
+                        <li>$a \equiv b$ (mod $n$)$\implies \left(\frac{a}{n}\right) = \left(\frac{b}{n}\right)$</li>
+                        <li>$\left(\frac{1}{n}\right) = 1$</li>
+                        <li>$\left(\frac{-1}{n}\right) = (-1)^{\frac{(n-1)}{2}}$</li>
+                        <li>$\left(\frac{2}{n}\right) = (-1)^{\frac{(n^2-1)}{8}}$</li>
+                        <li>$\left(\frac{m}{n}\right) = \left(\frac{n}{m}\right)(-1)^{\frac{(m-1)(n-1)}{4}}$</li>
                     </ul>
                     Z własności symbolu Jacobiego wynika, ze jeśli $n$ jest nieparzyste oraz $a$ nieparzyste i w postaci $a=2^ea_1$, gdzie $a_1$ też nieparzyste to:
-                    $$(\frac{a}{n})= (\frac{2^e}{n})(\frac{a_1}{n})= (\frac{2}{n})^e(\frac{n \ mod \ a_1}{a_1})(-1)^{\frac{(a_1-1)(n-1)}{4}}$$
+                    $$\left(\frac{a}{n}\right)= \left(\frac{2^e}{n}\right)\left(\frac{a_1}{n}\right)= \left(\frac{2}{n}\right)^e\left(\frac{n \ mod \ a_1}{a_1}\right)(-1)^{\frac{(a_1-1)(n-1)}{4}}$$
                 </p>
                 <h3 class="item-header">Obliczanie symbolu Jacobiego (i Legendre'a)</h3>
                 <p class="description" id="jacobi-legendre">
@@ -105,15 +113,15 @@
                             \begin{algorithm}
                             \caption{JACOBI $(a, n)$}
                             \begin{algorithmic}
-                            \IF{$a=0$} 
-                                \RETURN $0$ 
+                            \IF{$a=0$}
+                                \RETURN $0$
                             \ENDIF
-                            \IF{$a=1$} 
-                                \RETURN $1$ 
+                            \IF{$a=1$}
+                                \RETURN $1$
                             \ENDIF
                             \STATE Write $a=2^ea_1$, gdzie $a_1$ jest nieparzyste
-                            \IF{$e$ parzyste} 
-                                \STATE $s \gets 1$ 
+                            \IF{$e$ parzyste}
+                                \STATE $s \gets 1$
                             \ELSE
                                 \IF{$n \equiv 1 \lor 7 \ (mod \ 8)$}
                                     \STATE $s \gets 1$
@@ -146,7 +154,7 @@
                     <ul>
                         <li>Wybierz losowo dwie duże liczby pierwsze $p$ oraz $q$ (podobnego rozmiaru)</li>
                         <li>Policz $n=pq$</li>
-                        <li>Wybierz $y \in \mathbb{Z}_{n}$, takie, że $y$ jest nieresztą kwadratową modulo $n$ i symbol Jacobiego $(\frac{y}{n}) = 1$ (czyli $y$ jest pseudokwadratem modulo $n$)</li>
+                        <li>Wybierz $y \in \mathbb{Z}_{n}$, takie, że $y$ jest nieresztą kwadratową modulo $n$ i symbol Jacobiego $\left(\frac{y}{n}\right) = 1$ (czyli $y$ jest pseudokwadratem modulo $n$)</li>
                         <li>Klucz publiczny stanowi para $(n, y)$, zaś odpowiadający mu klucz prywatny to para $(p, q)$</li>
                     </ul>
                 </p>
@@ -184,12 +192,12 @@
                                 <pre class="pseudocode" style="display: none;">
                                     \begin{algorithmic}
                                     \FOR{$i=1$ \TO $t$}
-                                        \STATE policz symbol Legendre'a $e_i = (\frac{c_i}{p})$
+                                        \STATE policz symbol Legendre'a $e_i = \left(\frac{c_i}{p}\right)$
                                         \IF{$e_i = 1$}
                                             \STATE $m_i \gets 0$
                                         \ELSE
                                             \STATE $m_i \gets 1$
-                                        \ENDIF 
+                                        \ENDIF
                                     \ENDFOR
                                     \end{algorithmic}
                                 </pre>
