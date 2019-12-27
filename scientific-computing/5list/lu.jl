@@ -4,72 +4,64 @@ using SparseArrays
 export luDecomposition
 export luDecompositionPartChoice
 
-# Function to get LU decomposition using gaussian elimination
+# Function to get A decomposition using gaussian elimination
 # input(A,n,l): 
 #   A - square matrix (left side)
 #   n - size of matrix A
 #   l - size of one block of interior matrix
-# output(L, U, err):
-#   L, U - L and U matrixes
+# output(A, err):
+#   A - L and A matrixes
 #   err - sign of error of program
 #           0 - no error
 #           1 - 0 in diagonal A matrix
 # 
-# function doesn't change original matrix
 function luDecomposition(A::SparseMatrixCSC{Float64,Int64}, n::Int64, l::Int64)
-    U = dropzeros(copy(A))
-    L = spzeros(n,n) 
     for k = 1:n - 1
-        column_end = min(l + l * floor((k + 1) / l), n)   # last y with nonzero value
-        row_end = min(k + l, n)   # last x with nonzero value
+        column_end::Int64 = min(l + l * floor((k + 1) / l), n)   # last y with nonzero value
+        row_end::Int64 = min(k + l, n)   # last x with nonzero value
 
-        if abs(U[k,k]) < eps(Float64)
+        if abs(A[k,k]) < eps(Float64)
             return (spzeros(n, n), 1)
         end
 
         for i = k + 1:column_end
-            div = U[k, i] / U[k,k]
-            U[k, i] = 0
-            L[k, i] = div
+            div = A[k, i] / A[k,k]
+            A[k, i] = div
 
             for j = k + 1:row_end
-                U[j, i] -= div * U[j, k]
+                A[j, i] -= div * A[j, k]
             end
         end
     end
 
-    L = dropzeros(L)
-    U = dropzeros(U)
-    return (L, U, 0)
+    return (A, 0)
 end
 
-# Function to get LU decomposition using gaussian elimination with part choice of main element
+# Function to get A decomposition using gaussian elimination with part choice of main element
 # input(A,n,l): 
 #   A - square matrix (left side)
 #   n - size of matrix A
 #   l - size of one block of interior matrix
-# output(L, U, err):
-#   L, U - L, U matrixes
+# output(A, pivots, err):
+#   A - L, U matrixes
+#   pivots - array of changes rows
 #   err - sign of error of program
 #           0 - no error
 #           1 - max value in column is lesser than epsilon
 # 
-# function doesn't change original matrix
 function luDecompositionPartChoice(A::SparseMatrixCSC{Float64,Int64}, n::Int64, l::Int64)
-    U = dropzeros(copy(A))
-    L = spzeros(n,n)
-    pivots = collect(1:n)
+    pivots::Array = collect(1:n)
 
     for k = 1:n - 1
-        column_end = min(l + l * floor((k + 1) / l), n)   # last y with nonzero value
-        row_end = min(2*l + l * floor((k + 1) / l), n)   # last x with nonzero value
+        column_end::Int64 = min(l + l * floor((k + 1) / l), n)   # last y with nonzero value
+        row_end::Int64 = min(2*l + l * floor((k + 1) / l), n)   # last x with nonzero value
 
         for i = k + 1:column_end
             max_val_y = k
-            max_val = abs(U[k,pivots[max_val_y]])
+            max_val = abs(A[k,pivots[max_val_y]])
 
             for m = k + 1:column_end
-                tmp = abs(U[k, pivots[m]])
+                tmp = abs(A[k, pivots[m]])
                 if tmp > max_val
                     max_val = tmp
                     max_val_y = m
@@ -77,22 +69,19 @@ function luDecompositionPartChoice(A::SparseMatrixCSC{Float64,Int64}, n::Int64, 
             end
 
             if max_val < eps(Float64)
-                return (spzeros(n, n), 1)
+                return (spzeros(n, n),zeros(n), 1)
             end
 
             pivots[k], pivots[max_val_y] = pivots[max_val_y], pivots[k]
 
-            div = U[k, pivots[i]] / U[k,pivots[k]]
-            U[k, pivots[i]] = div
-            L[k, pivots[i]] = div
+            div = A[k, pivots[i]] / A[k,pivots[k]]
+            A[k, pivots[i]] = div
 
             for j = k + 1:row_end
-                U[j, pivots[i]] -= div * U[j, pivots[k]]
+                A[j, pivots[i]] -= div * A[j, pivots[k]]
             end
         end
     end
 
-    L = dropzeros(L)
-    U = dropzeros(U)
-    return (L, U, 0)
+    return (A,pivots, 0)
 end
