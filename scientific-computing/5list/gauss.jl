@@ -21,45 +21,6 @@ export gaussianEliminationPartChoice
 
 function gaussianElimination(A::SparseMatrixCSC{Float64,Int64}, n::Int64, l::Int64, b::Array{Float64})
 
-    # it::Int64 = 0
-    # for j in 1 : n - 1
-    #     lrow::Int64 = min(l + l * floor((j+1) / l), n)
-    #     lcol::Int64 = min(j + l, n)
-
-    #     if abs(A[j,j]) < eps(Float64)
-    #         error("Współczynnik na przekątnej równy 0")
-    #     end
-
-    #     for i in j + 1 : lrow
-    #         z = A[j, i] / A[j, j]
-    #         A[j, i] = 0
-
-    #         for k in j + 1 : lcol
-    #             it += 1
-    #             A[k, i] = A[k, i] - z * A[k, j]
-    #         end
-
-    #         b[i] = b[i] - z * b[j]
-    #     end
-    # end
-
-    # # solutions
-    # sol = Array{Float64}(undef, n)
-
-    # for j in n : -1 : 1
-    #     prev_total = 0.0
-    #     lcol = min(n, j + l)
-
-    #     for i in j + 1 : lcol
-    #         it += 1
-    #         prev_total += A[i, j] * sol[i]
-    #     end
-    #     sol[j] = (b[j] - prev_total) / A[j, j]
-    # end
-
-    # return sol, it
-
-
     for k = 1:n - 1
         column_end::Int64 = min(l + l * floor((k + 1) / l), n)   # last y with nonzero value
         row_end::Int64 = min(k + l, n)   # last x with nonzero value
