@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Shamir</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="mobile.css"/>
+    <script src="latex.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <div id="header">
+        <header>
+                Schemat progowy $(t, n)$ dzielenia sekretu Shamira
+        </header>
+    </div>
+    <div id="menu">
+        <nav>
+            <a class="redirect" href="index.html">Strona startowa</a>
+            <a class="redirect" href="micala.html">Schemat Goldwasser-Micali szyfrowania probabilistycznego</a>
+            <a class="redirect" href="shamir.html">Schemat progowy $(t, n)$ dzielenia sekretu Shamira</a>
+        </nav>
+    </div>
+    <div id="section-nav">
+        <nav>
+            <a class="link" href="#shamir">Schemat progowy $(t, n)$ dzielenia sekretu Shamira</a>
+            <a class="link" href="#lagrange">Interpolacja Lagrange'a</a>
+        </nav>
+    </div>
+
+    <div id="content">
+        <section id="shamir">
+            <h2 class="section-header">1. Schemat progowy $(t, n)$ dzielenia sekretu Shamira</h2>
+            <div class="items">
+                <h3 class="item-header">Cel</h3>
+                <p class="description">
+                    Zaufana  Trzecia  Strona $T$ ma  sekret $S>0$,  który  chce  podzielić  pomiędzy $n$ uczestników tak,  aby dowolnych $t$ spośród nich mogło sekret odtworzyć.
+                </p>
+                <h3 class="item-header">Faza inicjalizacji</h3>
+                <p class="description">
+                    <ul id="shamir-steps">
+                        <li>$T$ wybiera liczbę pierwszą $p > max(S,n)$ i definiuje $a_0 = S$.</li>
+                        <li>$T$ wybiera losowo i niezależnie $t - 1$ współczynników $a_1,...,a_{t-1} \in \mathbb{Z}_p$</li>
+                        <li>$T$ definiuje wielomian nad $\mathbb{Z}_p$: $$ f(x) = a_0 + \sum_{j=1}^{t-1} a_jx^j$$ </li>
+                        <li>Dla $1 \leq i \leq n$ Zaufana Trzecia Strona $T$ wybiera losowo $x_i \in \mathbb{Z}_p$, oblicza: $Si=f(xi)$ mod $p_i$ bezpiecznie  przekazuje  parę $(x_i, S_i)$ użytkownikowi $P_i$.</li>
+                    </ul>
+                </p>
+                <h3 class="item-header">Faza łączenia udziałów w sekret</h3>
+                <p class="description">
+                    Dowolna  grupa $t$ lub  więcej  użytkowników łączy swoje udziały -$t$ różnych punktów $(x_i, S_i)$ wielomianu $f$ i dzięki interpolacji Lagrange’a odzyskuje sekret $S=a_0=f(0)$.
+                </p>
+            </div>
+        </section>
+        <section id="lagrange">
+            <h2 class="section-header">2. Interpolacja Lagrange'a</h2>
+            <div class="items">
+                <h3 class="item-header">Opis</h3>
+                <p class="description">
+                    Mając dane $t$ różnych punktów $(x_i, y_i)$ nieznanego wielomianu $f$ stopnia mniejszego od $t$ możemy policzyć jego współczynniki korzystając ze wzoru:
+                    $$f(x) = \sum_{i=1}^t (y_{i} \prod_{1 \leq j \leq t, j \ne t}\frac{x - x_{j}}{x_{i} - x_{j}})\ mod\ p$$
+                </p>
+                <h3 class="item-header">Wskazówka</h3>
+                <p class="description">
+                    w schemacie Shamira, aby odzyskać sekret $S$,użytkownicy nie muszą znać całego wielomianu $f$.  Wstawiając do wzoru na interpolację Lagrange’a $x= 0$, dostajemy wersję uproszczoną, ale wystarczającą aby policzyć sekret $S=f(0)$:
+                    $$f(x) = \sum_{i=1}^t (y_{i} \prod_{1 \leq j \leq t, j \ne t}\frac{x_{j}}{x_{j} - x_{i}})\ mod\ p$$
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
